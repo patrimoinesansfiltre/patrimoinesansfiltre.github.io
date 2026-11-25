@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#00426B">
+<title>Demandes | Patrimoine sans Filtre</title>
+<link rel="icon" type="image/png" href="../icon.png">
+<link rel="apple-touch-icon" href="../icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Belleza&family=Work+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --marine:#00426B;--marine-nuit:#002E4B;--sable:#D9D2B8;--sable-clair:#F4F0E3;--sable-fonce:#9E9064;
+  --ardoise:#4A4E56;--gris:#6B6F76;--brume:#F4F4F1;--trait:#E2DED1;--bord:#C9C5B7;--rouge:#8E2B21;--vert:#1E6B45;
+  --display:"Belleza","Optima","Candara",sans-serif;--texte:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--texte);font-size:15px;line-height:1.5;letter-spacing:.01em;color:var(--ardoise);background:var(--brume);-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit}
+a{color:inherit}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--marine);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+
+/* Header */
+.entete{position:sticky;top:0;z-index:10;background:var(--marine);color:#fff}
+.entete .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:62px}
+.marque{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+.monogramme{flex:none;display:grid;place-items:center;width:36px;height:36px;border:1px solid var(--sable);border-radius:50%;font-family:var(--display);font-size:13px;color:var(--sable)}
+.marque-nom{font-family:var(--display);font-size:18px;line-height:1.15}
+.marque-nom small{display:block;font-family:var(--texte);font-size:12px;letter-spacing:.02em;color:rgba(255,255,255,.7)}
+.actions-entete{display:flex;gap:8px}
+
+/* Buttons */
+.bouton{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:0 14px;border:1px solid transparent;border-radius:2px;background:var(--marine);color:#fff;font-size:13px;font-weight:600;letter-spacing:.04em;text-decoration:none;cursor:pointer;white-space:nowrap}
+.bouton:hover{background:var(--marine-nuit)}
+.bouton:disabled{opacity:.6;cursor:progress}
+.bouton-sable{background:var(--sable);color:var(--marine)}
+.bouton-sable:hover{background:#E8E3D1}
+.bouton-clair{background:transparent;border-color:rgba(217,210,184,.55);color:var(--sable)}
+.bouton-clair:hover{background:rgba(255,255,255,.07)}
+.bouton-ligne{background:#fff;border-color:var(--bord);color:var(--marine)}
+.bouton-ligne:hover{background:#fff;border-color:var(--marine)}
+.bouton-danger{background:#fff;border-color:#E6C8C4;color:var(--rouge)}
+.bouton-danger:hover{background:#FBF3F2}
+.bouton-large{width:100%;min-height:48px;font-size:14px;letter-spacing:.1em;text-transform:uppercase}
+
+/* Login */
+.connexion{min-height:calc(100vh - 62px);display:grid;place-items:center;padding:32px 16px}
+.carte{width:100%;max-width:410px;padding:32px 28px;background:#fff;border:1px solid var(--trait);border-top:3px solid var(--sable)}
+.carte h1{margin:0 0 6px;font-family:var(--display);font-size:30px;font-weight:400;line-height:1.1;color:var(--marine)}
+.carte > p{margin:0 0 22px;font-size:14px;color:var(--gris)}
+.champ{display:grid;gap:6px;margin-bottom:14px;font-size:13px;font-weight:600;color:var(--marine)}
+.champ input{min-height:46px;padding:0 12px;border:1px solid var(--bord);border-radius:2px;background:#fff;font-size:16px;font-weight:400;color:#1E2228}
+.champ input:focus{outline:none;border-color:var(--marine);box-shadow:0 0 0 3px rgba(0,66,107,.14)}
+.message-erreur{margin:0 0 14px;font-size:14px;color:var(--rouge)}
+.message-ok{margin:0 0 14px;font-size:14px;color:var(--vert)}
+.bascule{margin-top:18px;padding-top:16px;border-top:1px solid var(--trait);font-size:14px;color:var(--gris)}
+.lien{padding:0;border:0;background:none;color:var(--marine);font-size:14px;text-decoration:underline;cursor:pointer}
+
+/* Status tabs */
+.titre-page{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:22px 0 4px}
+.titre-page h1{margin:0;font-family:var(--display);font-size:30px;font-weight:400;color:var(--marine)}
+.titre-page span{font-size:13px;color:var(--gris)}
+.onglets{display:flex;gap:8px;overflow-x:auto;padding:12px 0 6px;scrollbar-width:none}
+.onglets::-webkit-scrollbar{display:none}
+.onglet{flex:none;display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 14px;border:1px solid var(--trait);border-radius:999px;background:#fff;font-size:14px;color:var(--ardoise);cursor:pointer}
+.onglet b{font-weight:600;color:var(--marine)}
+.onglet[aria-pressed="true"]{background:var(--marine);border-color:var(--marine);color:#fff}
+.onglet[aria-pressed="true"] b{color:var(--sable)}
+.onglet .point{width:8px;height:8px;border-radius:50%;background:var(--sable-fonce)}
+
+/* Filters */
+.filtres{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding:10px 0}
+.filtres-avances{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.bouton-filtres{display:none}
+.filtres input,.filtres select{width:100%;min-height:40px;padding:0 10px;border:1px solid var(--bord);border-radius:2px;background:#fff;font-size:14px}
+.filtres input:focus,.filtres select:focus{outline:none;border-color:var(--marine)}
+.barre-resultats{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 12px;font-size:13px;color:var(--gris)}
+.barre-resultats .groupe{display:flex;gap:8px}
+
+/* Cards */
+.liste{display:grid;gap:10px;padding-bottom:56px}
+.demande{background:#fff;border:1px solid var(--trait);border-left:4px solid var(--trait);border-radius:2px}
+.demande[data-statut="non_traitee"]{border-left-color:var(--sable-fonce)}
+.demande[data-statut="contactee"]{border-left-color:#7FA3BC}
+.demande[data-statut="rdv_fixe"]{border-left-color:var(--marine)}
+.demande[data-statut="venu"]{border-left-color:var(--vert)}
+.demande[data-statut="pas_venu"]{border-left-color:var(--rouge)}
+.demande[data-statut="sans_suite"]{border-left-color:#B8B8B8}
+.tete{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;width:100%;padding:14px 16px;border:0;background:none;text-align:left;cursor:pointer}
+.nom{font-family:var(--display);font-size:21px;line-height:1.2;color:var(--marine)}
+.quand{margin-top:2px;font-size:13px;color:var(--gris)}
+.alerte{color:var(--rouge);font-weight:600}
+.badge{align-self:start;display:inline-flex;align-items:center;min-height:26px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.badge-non_traitee{background:var(--sable-clair);color:#6E6240}
+.badge-contactee{background:#E7EEF4;color:var(--marine)}
+.badge-rdv_fixe{background:var(--marine);color:#fff}
+.badge-venu{background:#E3F1EA;color:var(--vert)}
+.badge-pas_venu{background:#F8E7E5;color:var(--rouge)}
+.badge-sans_suite{background:#EEEEEC;color:#5E6166}
+.puces{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px}
+.puce{display:inline-flex;align-items:center;min-height:24px;padding:0 8px;border-radius:2px;background:var(--brume);font-size:12px;color:var(--ardoise)}
+.puce-forte{background:var(--sable-clair);color:var(--marine);font-weight:600}
+.puce-rdv{background:#E7EEF4;color:var(--marine);font-weight:600}
+.corps{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;padding:16px;border-top:1px solid var(--trait)}
+.bloc h3{margin:0 0 8px;font-size:12px;font-weight:600;letter-spacing:.03em;color:var(--gris)}
+.infos{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:14px}
+.infos dt{color:var(--gris)}
+.infos dd{margin:0;color:#1E2228}
+.citation{margin:12px 0 0;padding:10px 12px;border-left:2px solid var(--sable);background:var(--brume);font-size:14px;color:#1E2228;white-space:pre-wrap}
+.controle{display:grid;gap:6px;margin-bottom:12px;font-size:13px;font-weight:600;color:var(--marine)}
+.controle select,.controle input,.controle textarea{width:100%;padding:9px 10px;border:1px solid var(--bord);border-radius:2px;background:#fff;font-size:15px;font-weight:400;color:#1E2228}
+.controle select,.controle input{min-height:42px}
+.controle textarea{min-height:92px;resize:vertical}
+.controle :focus{outline:none;border-color:var(--marine);box-shadow:0 0 0 3px rgba(0,66,107,.12)}
+.etat-sauvegarde{min-height:18px;font-size:12px;font-weight:400;color:var(--vert)}
+.ligne-actions{display:flex;flex-wrap:wrap;gap:8px}
+.vide{padding:48px 16px;text-align:center;color:var(--gris);background:#fff;border:1px dashed var(--bord)}
+.vide strong{display:block;margin-bottom:4px;font-family:var(--display);font-size:22px;font-weight:400;color:var(--marine)}
+.toast{position:fixed;left:50%;bottom:20px;z-index:20;transform:translateX(-50%);padding:10px 16px;border-radius:2px;background:var(--marine-nuit);color:#fff;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+
+@media (max-width:980px){
+  .filtres-avances{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .marque-nom{font-size:16px}
+  .marque-nom small{display:none}
+  .monogramme{display:none}
+  .actions-entete .bouton{padding:0 10px}
+  .titre-page h1{font-size:26px}
+  .filtres{grid-template-columns:minmax(0,1fr) auto}
+  .bouton-filtres{display:inline-flex}
+  .filtres-avances{display:none;grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .filtres-avances.ouvert{display:grid}
+  .corps{grid-template-columns:1fr}
+  .barre-resultats{flex-wrap:wrap}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="entete">
+  <div class="wrap">
+    <a class="marque" href="./">
+      <span class="monogramme" aria-hidden="true">PsF</span>
+      <span class="marque-nom">Patrimoine sans Filtre<small>Gestion des demandes</small></span>
+    </a>
+    <div class="actions-entete" id="actions-entete" hidden>
+      <button class="bouton bouton-clair" id="bouton-rafraichir" type="button">Actualiser</button>
+      <button class="bouton bouton-clair" id="bouton-deconnexion" type="button">D&#233;connexion</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Sign-in -->
+  <section class="connexion" id="vue-connexion" hidden>
+    <div class="carte">
+      <form id="form-connexion" novalidate>
+        <h1>Connexion</h1>
+        <p>Acc&#232;s r&#233;serv&#233; &#224; la gestion des demandes d&#8217;audit.</p>
+        <label class="champ">Adresse e-mail<input type="email" id="connexion-email" autocomplete="username" required></label>
+        <label class="champ">Mot de passe<input type="password" id="connexion-mdp" autocomplete="current-password" required></label>
+        <p class="message-erreur" id="connexion-erreur" hidden></p>
+        <button class="bouton bouton-large" type="submit" id="connexion-bouton">Se connecter</button>
+        <div class="bascule">Premi&#232;re connexion&nbsp;? <button class="lien" type="button" id="vers-creation">Cr&#233;er mon acc&#232;s</button></div>
+      </form>
+
+      <form id="form-creation" novalidate hidden>
+        <h1>Cr&#233;er mon acc&#232;s</h1>
+        <p>&#192; faire une seule fois, avec l&#8217;adresse e-mail qui re&#231;oit les demandes.</p>
+        <label class="champ">Adresse e-mail<input type="email" id="creation-email" autocomplete="username" required></label>
+        <label class="champ">Mot de passe (10 caract&#232;res minimum)<input type="password" id="creation-mdp" autocomplete="new-password" minlength="10" required></label>
+        <label class="champ">Confirmer le mot de passe<input type="password" id="creation-mdp2" autocomplete="new-password" minlength="10" required></label>
+        <p class="message-erreur" id="creation-erreur" hidden></p>
+        <button class="bouton bouton-large" type="submit" id="creation-bouton">Cr&#233;er mon acc&#232;s</button>
+        <div class="bascule">D&#233;j&#224; un acc&#232;s&nbsp;? <button class="lien" type="button" id="vers-connexion">Se connecter</button></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- App -->
+  <section id="vue-app" hidden>
+    <div class="wrap">
+      <div class="titre-page">
+        <h1>Demandes d&#8217;audit</h1>
+        <span id="maj-heure"></span>
+      </div>
+
+      <div class="onglets" id="onglets" role="toolbar" aria-label="Filtrer par statut"></div>
+
+      <div class="filtres">
+        <input class="recherche" type="search" id="f-recherche" placeholder="Rechercher un nom ou un t&#233;l&#233;phone" aria-label="Rechercher">
+        <button class="bouton bouton-ligne bouton-filtres" id="bouton-filtres" type="button" aria-expanded="false" aria-controls="filtres-avances">Filtres</button>
+        <div class="filtres-avances" id="filtres-avances">
+        <select id="f-age" aria-label="&#194;ge"></select>
+        <select id="f-residence" aria-label="R&#233;sidence principale"></select>
+        <select id="f-objectif" aria-label="Objectif principal"></select>
+        <select id="f-epargne" aria-label="&#201;pargne et placements"></select>
+        <select id="f-source" aria-label="Source"></select>
+        <select id="f-tri" aria-label="Trier">
+          <option value="recent">Plus r&#233;centes</option>
+          <option value="ancien">Plus anciennes</option>
+          <option value="epargne">&#201;pargne la plus &#233;lev&#233;e</option>
+          <option value="rdv">Prochains RDV</option>
+        </select>
+        </div>
+      </div>
+
+      <div class="barre-resultats">
+        <span id="compteur"></span>
+        <div class="groupe">
+          <button class="bouton bouton-ligne" type="button" id="bouton-reinitialiser">Effacer les filtres</button>
+          <button class="bouton bouton-ligne" type="button" id="bouton-export">Exporter (CSV)</button>
+        </div>
+      </div>
+
+      <div class="liste" id="liste" aria-live="polite"></div>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+const URL_BASE = "https://vphjipdvpbnmkrrgcurm.supabase.co";
+const CLE_PUBLIQUE = "sb_publishable_716jhwmlAi3B1jawr7Eczg_o0yAIYYv";
+const sb = createClient(URL_BASE, CLE_PUBLIQUE, { auth: { persistSession: true, autoRefreshToken: true } });
+
+const STATUTS = [
+  ["non_traitee", "Non trait\u00e9e", "Non trait\u00e9es"],
+  ["contactee", "Contact\u00e9e", "Contact\u00e9es"],
+  ["rdv_fixe", "RDV fix\u00e9", "RDV fix\u00e9s"],
+  ["venu", "Venu au RDV", "Venus"],
+  ["pas_venu", "Pas venu", "Pas venus"],
+  ["sans_suite", "Sans suite", "Sans suite"],
+];
+const LIBELLE = Object.fromEntries(STATUTS.map(([c, l]) => [c, l]));
+const ORDRE_EPARGNE = {
+  "Moins de 30 000 \u20ac": 1, "30 000 \u00e0 100 000 \u20ac": 2, "100 000 \u00e0 300 000 \u20ac": 3,
+  "300 000 \u20ac \u00e0 1 M\u20ac": 4, "Plus de 1 M\u20ac": 5, "Pr\u00e9f\u00e8re en parler au conseiller": 0,
+};
+const FILTRES = [
+  ["age", "f-age", "Tous les \u00e2ges"],
+  ["residence", "f-residence", "Tous les logements"],
+  ["objectif", "f-objectif", "Tous les objectifs"],
+  ["epargne", "f-epargne", "Toutes les \u00e9pargnes"],
+  ["source", "f-source", "Toutes les sources"],
+];
+
+let demandes = [];
+const etat = { statut: "tous", recherche: "", age: "", residence: "", objectif: "", epargne: "", source: "", tri: "recent" };
+const ouvertes = new Set();
+const $ = (id) => document.getElementById(id);
+
+/* ---------- helpers ---------- */
+function el(tag, attrs = {}, ...enfants) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (v === null || v === undefined || v === false) continue;
+    if (k === "class") n.className = v;
+    else if (k === "text") n.textContent = v;
+    else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+    else n.setAttribute(k, v === true ? "" : v);
+  }
+  for (const e of enfants.flat()) if (e !== null && e !== undefined && e !== false) n.append(e);
+  return n;
+}
+const fmtDate = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+const fmtJour = new Intl.DateTimeFormat("fr-FR", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+function depuis(iso) {
+  const min = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
+  if (min < 1) return "\u00e0 l\u2019instant";
+  if (min < 60) return `il y a ${min} min`;
+  const h = Math.round(min / 60);
+  if (h < 24) return `il y a ${h} h`;
+  const j = Math.round(h / 24);
+  return `il y a ${j} j`;
+}
+function versChampLocal(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  const p = (x) => String(x).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+function telLien(t) { return "tel:" + (t || "").replace(/[^0-9+]/g, ""); }
+function normaliser(s) { return (s || "").toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); }
+let minuteurToast;
+function toast(texte) {
+  const t = $("toast");
+  t.textContent = texte;
+  t.hidden = false;
+  clearTimeout(minuteurToast);
+  minuteurToast = setTimeout(() => { t.hidden = true; }, 2600);
+}
+
+/* ---------- auth ---------- */
+function montrer(connecte) {
+  $("vue-connexion").hidden = connecte;
+  $("vue-app").hidden = !connecte;
+  $("actions-entete").hidden = !connecte;
+}
+function erreur(id, texte) { const p = $(id); p.textContent = texte || ""; p.hidden = !texte; }
+
+$("vers-creation").addEventListener("click", () => { $("form-connexion").hidden = true; $("form-creation").hidden = false; $("creation-email").focus(); });
+$("vers-connexion").addEventListener("click", () => { $("form-creation").hidden = true; $("form-connexion").hidden = false; $("connexion-email").focus(); });
+
+$("form-connexion").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  erreur("connexion-erreur", "");
+  const email = $("connexion-email").value.trim();
+  const password = $("connexion-mdp").value;
+  if (!email || !password) { erreur("connexion-erreur", "Renseigne ton adresse e-mail et ton mot de passe."); return; }
+  const b = $("connexion-bouton"); b.disabled = true;
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  b.disabled = false;
+  if (error) erreur("connexion-erreur", "Adresse e-mail ou mot de passe incorrect.");
+});
+
+$("form-creation").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  erreur("creation-erreur", "");
+  const email = $("creation-email").value.trim();
+  const motDePasse = $("creation-mdp").value;
+  if (!email) { erreur("creation-erreur", "Renseigne ton adresse e-mail."); return; }
+  if (motDePasse.length < 10) { erreur("creation-erreur", "Choisis un mot de passe d\u2019au moins 10 caract\u00e8res."); return; }
+  if (motDePasse !== $("creation-mdp2").value) { erreur("creation-erreur", "Les deux mots de passe ne sont pas identiques."); return; }
+  const b = $("creation-bouton"); b.disabled = true;
+  try {
+    const r = await fetch(`${URL_BASE}/functions/v1/creer-acces`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", apikey: CLE_PUBLIQUE },
+      body: JSON.stringify({ email, motDePasse }),
+    });
+    const corps = await r.json().catch(() => ({}));
+    if (!r.ok) { erreur("creation-erreur", corps.erreur || "Cr\u00e9ation impossible, r\u00e9essaie."); b.disabled = false; return; }
+    const { error } = await sb.auth.signInWithPassword({ email, password: motDePasse });
+    if (error) erreur("creation-erreur", "Acc\u00e8s cr\u00e9\u00e9. Connecte-toi avec ton mot de passe.");
+  } catch {
+    erreur("creation-erreur", "Connexion impossible. V\u00e9rifie ton r\u00e9seau et r\u00e9essaie.");
+  }
+  b.disabled = false;
+});
+
+$("bouton-deconnexion").addEventListener("click", async () => { await sb.auth.signOut(); });
+$("bouton-rafraichir").addEventListener("click", () => charger(true));
+
+/* ---------- data ---------- */
+async function charger(manuel = false) {
+  const { data, error } = await sb.from("demandes").select("*").order("cree_le", { ascending: false }).limit(2000);
+  if (error) { toast("Impossible de charger les demandes."); return; }
+  demandes = data || [];
+  $("maj-heure").textContent = "Mis \u00e0 jour \u00e0 " + new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+  rendre();
+  if (manuel) toast("Liste \u00e0 jour");
+}
+
+async function modifier(id, champs, message = "Enregistr\u00e9") {
+  const { data, error } = await sb.from("demandes").update(champs).eq("id", id).select().single();
+  if (error) { toast("\u00c9chec de l\u2019enregistrement, r\u00e9essaie."); return false; }
+  const i = demandes.findIndex((d) => d.id === id);
+  if (i >= 0) demandes[i] = data;
+  rendre();
+  toast(message);
+  return true;
+}
+
+async function supprimer(d) {
+  if (!confirm(`Supprimer d\u00e9finitivement la demande de ${d.prenom} ${d.nom} ?`)) return;
+  const { error } = await sb.from("demandes").delete().eq("id", d.id);
+  if (error) { toast("Suppression impossible."); return; }
+  demandes = demandes.filter((x) => x.id !== d.id);
+  ouvertes.delete(d.id);
+  rendre();
+  toast("Demande supprim\u00e9e");
+}
+
+/* ---------- filters ---------- */
+function filtrees(sansStatut = false) {
+  const q = normaliser(etat.recherche);
+  const qTel = etat.recherche.replace(/\D/g, "");
+  let liste = demandes.filter((d) => {
+    if (!sansStatut && etat.statut !== "tous" && d.statut !== etat.statut) return false;
+    for (const [cle] of FILTRES) if (etat[cle] && (d[cle] || "") !== etat[cle]) return false;
+    if (q) {
+      const texte = normaliser(`${d.prenom} ${d.nom} ${d.message || ""} ${d.notes || ""}`);
+      const tel = (d.telephone || "").replace(/\D/g, "");
+      if (!texte.includes(q) && !(qTel.length >= 3 && tel.includes(qTel))) return false;
+    }
+    return true;
+  });
+  const t = (d) => new Date(d.cree_le).getTime();
+  if (etat.tri === "ancien") liste.sort((a, b) => t(a) - t(b));
+  else if (etat.tri === "epargne") liste.sort((a, b) => (ORDRE_EPARGNE[b.epargne] ?? -1) - (ORDRE_EPARGNE[a.epargne] ?? -1) || t(b) - t(a));
+  else if (etat.tri === "rdv") liste.sort((a, b) => {
+    const ra = a.rdv_le ? new Date(a.rdv_le).getTime() : Infinity;
+    const rb = b.rdv_le ? new Date(b.rdv_le).getTime() : Infinity;
+    return ra - rb || t(b) - t(a);
+  });
+  else liste.sort((a, b) => t(b) - t(a));
+  return liste;
+}
+
+function remplirSelects() {
+  for (const [cle, id, tous] of FILTRES) {
+    const sel = $(id);
+    let valeurs = [...new Set(demandes.map((d) => d[cle]).filter(Boolean))];
+    if (cle === "epargne") valeurs.sort((a, b) => (ORDRE_EPARGNE[a] ?? 99) - (ORDRE_EPARGNE[b] ?? 99));
+    else valeurs.sort((a, b) => a.localeCompare(b, "fr"));
+    if (etat[cle] && !valeurs.includes(etat[cle])) valeurs.unshift(etat[cle]);
+    sel.replaceChildren(el("option", { value: "", text: tous }), ...valeurs.map((v) => el("option", { value: v, text: v })));
+    sel.value = etat[cle];
+  }
+}
+
+function rendreOnglets() {
+  const base = filtrees(true);
+  const compte = (s) => base.filter((d) => d.statut === s).length;
+  const boutons = [["tous", "Toutes", base.length], ...STATUTS.map(([c, , pluriel]) => [c, pluriel, compte(c)])];
+  $("onglets").replaceChildren(...boutons.map(([code, libelle, n]) =>
+    el("button", {
+      class: "onglet", type: "button", "aria-pressed": String(etat.statut === code),
+      onclick: () => { etat.statut = code; rendre(); },
+    }, code === "non_traitee" && n > 0 ? el("span", { class: "point", "aria-hidden": "true" }) : null, libelle, " ", el("b", { text: String(n) }))
+  ));
+}
+
+/* ---------- cards ---------- */
+function carte(d) {
+  const ouverte = ouvertes.has(d.id);
+  const heures = (Date.now() - new Date(d.cree_le).getTime()) / 3600000;
+  let alerte = null;
+  if (d.statut === "non_traitee" && heures >= 24) alerte = `En attente depuis ${Math.floor(heures / 24)} j`;
+  if (d.statut === "rdv_fixe" && d.rdv_le && new Date(d.rdv_le).getTime() < Date.now()) alerte = "RDV pass\u00e9 : indique s\u2019il est venu";
+
+  const puces = el("div", { class: "puces" },
+    d.epargne ? el("span", { class: "puce puce-forte", text: d.epargne }) : null,
+    d.age ? el("span", { class: "puce", text: d.age }) : null,
+    d.residence ? el("span", { class: "puce", text: d.residence }) : null,
+    d.objectif ? el("span", { class: "puce", text: d.objectif }) : null,
+    d.rdv_le ? el("span", { class: "puce puce-rdv", text: "RDV " + fmtJour.format(new Date(d.rdv_le)) }) : null,
+    d.source ? el("span", { class: "puce", text: "Source : " + d.source }) : null,
+  );
+
+  const tete = el("button", {
+    class: "tete", type: "button", "aria-expanded": String(ouverte),
+    onclick: () => { ouverte ? ouvertes.delete(d.id) : ouvertes.add(d.id); rendre(); },
+  },
+    el("div", {},
+      el("div", { class: "nom", text: `${d.prenom} ${d.nom}` }),
+      el("div", { class: "quand" },
+        fmtDate.format(new Date(d.cree_le)) + " \u00b7 " + depuis(d.cree_le),
+        alerte ? el("span", { class: "alerte", text: " \u00b7 " + alerte }) : null),
+    ),
+    el("span", { class: `badge badge-${d.statut}`, text: LIBELLE[d.statut] || d.statut }),
+    puces,
+  );
+
+  const n = el("article", { class: "demande", "data-statut": d.statut }, tete);
+  if (!ouverte) return n;
+
+  const selectStatut = el("select", {
+    onchange: (e) => modifier(d.id, { statut: e.target.value }, "Statut : " + LIBELLE[e.target.value]),
+  }, ...STATUTS.map(([c, l]) => el("option", { value: c, text: l, selected: c === d.statut })));
+
+  const champRdv = el("input", {
+    type: "datetime-local", value: versChampLocal(d.rdv_le),
+    onchange: (e) => {
+      const v = e.target.value;
+      const champs = { rdv_le: v ? new Date(v).toISOString() : null };
+      if (v && (d.statut === "non_traitee" || d.statut === "contactee")) champs.statut = "rdv_fixe";
+      modifier(d.id, champs, v ? "RDV enregistr\u00e9" : "RDV retir\u00e9");
+    },
+  });
+
+  const etatNotes = el("span", { class: "etat-sauvegarde" });
+  const zoneNotes = el("textarea", {
+    placeholder: "Ex. : rappeler jeudi apr\u00e8s 18 h, a un PEA et une assurance-vie\u2026",
+    onblur: async (e) => {
+      const v = e.target.value.trim();
+      if (v === (d.notes || "")) return;
+      etatNotes.textContent = "Enregistrement\u2026";
+      await modifier(d.id, { notes: v || null }, "Notes enregistr\u00e9es");
+    },
+  });
+  zoneNotes.value = d.notes || "";
+
+  const corps = el("div", { class: "corps" },
+    el("div", { class: "bloc" },
+      el("h3", { text: "Coordonn\u00e9es et r\u00e9ponses" }),
+      el("dl", { class: "infos" },
+        el("dt", { text: "T\u00e9l\u00e9phone" }), el("dd", {}, el("a", { href: telLien(d.telephone), text: d.telephone })),
+        el("dt", { text: "\u00c2ge" }), el("dd", { text: d.age || "\u2014" }),
+        el("dt", { text: "Logement" }), el("dd", { text: d.residence || "\u2014" }),
+        el("dt", { text: "Objectif" }), el("dd", { text: d.objectif || "\u2014" }),
+        el("dt", { text: "\u00c9pargne" }), el("dd", { text: d.epargne || "\u2014" }),
+        el("dt", { text: "Source" }), el("dd", { text: d.source || "\u2014" }),
+        el("dt", { text: "Re\u00e7ue le" }), el("dd", { text: fmtJour.format(new Date(d.cree_le)) }),
+      ),
+      d.message ? el("p", { class: "citation", text: d.message }) : null,
+      el("div", { class: "ligne-actions", style: "margin-top:14px" },
+        el("a", { class: "bouton", href: telLien(d.telephone) }, "Appeler"),
+      ),
+    ),
+    el("div", { class: "bloc" },
+      el("h3", { text: "Suivi" }),
+      el("label", { class: "controle" }, "Statut", selectStatut),
+      el("label", { class: "controle" }, "Date et heure du RDV", champRdv),
+      el("label", { class: "controle" }, "Notes", zoneNotes, etatNotes),
+      el("div", { class: "ligne-actions" },
+        el("button", { class: "bouton bouton-danger", type: "button", onclick: () => supprimer(d) }, "Supprimer la demande"),
+      ),
+    ),
+  );
+  n.append(corps);
+  return n;
+}
+
+/* ---------- render ---------- */
+function rendre() {
+  remplirSelects();
+  const actifs = FILTRES.filter(([cle]) => etat[cle]).length;
+  $("bouton-filtres").textContent = actifs ? `Filtres (${actifs})` : "Filtres";
+  rendreOnglets();
+  const liste = filtrees();
+  const nonTraitees = demandes.filter((d) => d.statut === "non_traitee").length;
+  document.title = (nonTraitees ? `(${nonTraitees}) ` : "") + "Demandes | Patrimoine sans Filtre";
+  $("compteur").textContent = `${liste.length} demande${liste.length > 1 ? "s" : ""} affich\u00e9e${liste.length > 1 ? "s" : ""} sur ${demandes.length}`;
+  if (!liste.length) {
+    $("liste").replaceChildren(el("div", { class: "vide" },
+      el("strong", { text: demandes.length ? "Aucune demande pour ces filtres" : "Aucune demande pour l\u2019instant" }),
+      demandes.length ? "Change de statut ou efface les filtres." : "Les demandes du site arriveront ici automatiquement."));
+    return;
+  }
+  $("liste").replaceChildren(...liste.map(carte));
+}
+
+for (const [cle, id] of FILTRES) $(id).addEventListener("change", (e) => { etat[cle] = e.target.value; rendre(); });
+$("bouton-filtres").addEventListener("click", () => {
+  const zone = $("filtres-avances");
+  const ouvert = zone.classList.toggle("ouvert");
+  $("bouton-filtres").setAttribute("aria-expanded", String(ouvert));
+});
+$("f-tri").addEventListener("change", (e) => { etat.tri = e.target.value; rendre(); });
+$("f-recherche").addEventListener("input", (e) => { etat.recherche = e.target.value; rendre(); });
+$("bouton-reinitialiser").addEventListener("click", () => {
+  Object.assign(etat, { statut: "tous", recherche: "", age: "", residence: "", objectif: "", epargne: "", source: "", tri: "recent" });
+  $("f-recherche").value = ""; $("f-tri").value = "recent";
+  rendre();
+});
+
+/* ---------- export ---------- */
+$("bouton-export").addEventListener("click", () => {
+  const colonnes = [
+    ["Re\u00e7ue le", (d) => fmtJour.format(new Date(d.cree_le))], ["Pr\u00e9nom", (d) => d.prenom], ["Nom", (d) => d.nom],
+    ["T\u00e9l\u00e9phone", (d) => d.telephone], ["\u00c2ge", (d) => d.age], ["Logement", (d) => d.residence], ["Objectif", (d) => d.objectif],
+    ["\u00c9pargne", (d) => d.epargne], ["Source", (d) => d.source], ["Statut", (d) => LIBELLE[d.statut]],
+    ["RDV", (d) => (d.rdv_le ? fmtJour.format(new Date(d.rdv_le)) : "")], ["Notes", (d) => d.notes], ["Message", (d) => d.message],
+  ];
+  const cellule = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const lignes = [colonnes.map(([t]) => cellule(t)).join(";"), ...filtrees().map((d) => colonnes.map(([, f]) => cellule(f(d))).join(";"))];
+  const blob = new Blob(["\ufeff" + lignes.join("\r\n")], { type: "text/csv;charset=utf-8" });
+  const a = el("a", { href: URL.createObjectURL(blob), download: `demandes-${new Date().toISOString().slice(0, 10)}.csv` });
+  document.body.append(a); a.click(); a.remove();
+});
+
+/* ---------- startup ---------- */
+let minuteurAuto;
+async function demarrer(session) {
+  montrer(!!session);
+  clearInterval(minuteurAuto);
+  if (!session) return;
+  await charger();
+  minuteurAuto = setInterval(() => {
+    const actif = document.activeElement;
+    if (document.visibilityState === "visible" && !(actif && actif.closest && actif.closest(".corps"))) charger();
+  }, 90000);
+}
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && !$("vue-app").hidden) charger();
+});
+sb.auth.onAuthStateChange((evenement, session) => {
+  // setTimeout: never call Supabase from inside this callback directly
+  if (evenement === "INITIAL_SESSION" || evenement === "SIGNED_IN" || evenement === "SIGNED_OUT") setTimeout(() => demarrer(session), 0);
+});
+</script>
+</body>
+</html>
