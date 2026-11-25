@@ -3,22 +3,49 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Merci · Patrimoine sans Filtre</title>
-<link rel="icon" href="icon.png">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800;900&display=swap" rel="stylesheet">
+<title>Demande enregistr&#233;e | Patrimoine sans Filtre</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#00426B">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Belleza&family=Work+Sans:wght@400;500;600&display=swap">
 <style>
-  body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0e1630;color:#f4f5fa;font-family:Inter,system-ui,sans-serif;text-align:center;padding:24px}
-  h1{font-size:clamp(28px,5vw,44px);font-weight:900;margin:0 0 12px}
-  h1 span{color:#e8bd5c}
-  p{color:#b7bdd3;font-size:18px;line-height:1.55;max-width:520px;margin:0 auto 24px}
-  a{display:inline-block;background:#e8bd5c;color:#1a1405;font-weight:800;text-decoration:none;border-radius:12px;padding:14px 20px}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:#00426B;color:#fff;font-family:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.6;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid #D9D2B8;outline-offset:3px}
+.entete{width:100%;max-width:1160px;margin:0 auto;padding:18px 24px}
+.marque{display:inline-flex;align-items:center;gap:12px;text-decoration:none}
+.monogramme{display:grid;place-items:center;width:42px;height:42px;border:1px solid #D9D2B8;border-radius:50%;font-family:"Belleza",sans-serif;font-size:15px;color:#D9D2B8}
+.marque-nom{font-family:"Belleza",sans-serif;font-size:21px;line-height:1}
+main{flex:1;display:grid;place-items:center;padding:48px 24px 96px}
+.carte{max-width:620px}
+.trait{width:56px;height:1px;margin-bottom:32px;background:#D9D2B8}
+h1{margin:0;font-family:"Belleza",sans-serif;font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1.08}
+p{margin:24px 0 0;color:rgba(255,255,255,.84);max-width:32em}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:20px 28px;margin-top:40px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 30px;border-radius:2px;background:#D9D2B8;color:#00426B;font:600 14px/1 "Work Sans",sans-serif;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
+.btn:hover{background:#E8E3D1}
+.lien{color:#D9D2B8;font-size:15px}
+@media (max-width:640px){body{font-size:16px}.btn{width:100%}}
 </style>
 </head>
 <body>
-  <div>
-    <h1>C'est noté, <span>merci !</span></h1>
-    <p>Un conseiller en patrimoine senior va te recontacter très vite pour fixer ton rendez-vous. En attendant, la famille Moreau t'attend sur Instagram.</p>
-    <a href="https://www.instagram.com/patrimoine.sansfiltre/">Voir les vidéos</a>
+<header class="entete">
+  <a class="marque" href="./"><span class="monogramme" aria-hidden="true">PsF</span><span class="marque-nom">Patrimoine sans Filtre</span></a>
+</header>
+<main>
+  <div class="carte">
+    <div class="trait"></div>
+    <h1>Merci, votre demande est bien enregistr&#233;e.</h1>
+    <p>Un conseiller en gestion de patrimoine va vous appeler pour convenir de votre rendez-vous. L&#8217;appel peut venir d&#8217;un num&#233;ro que vous ne connaissez pas&nbsp;: pensez &#224; d&#233;crocher.</p>
+    <p>Vos informations restent confidentielles et ne sont transmises qu&#8217;au conseiller qui r&#233;alisera votre audit.</p>
+    <div class="actions">
+      <a class="btn" href="./">Retour &#224; l&#8217;accueil</a>
+      <a class="lien" href="https://www.instagram.com/patrimoine.sansfiltre/">Voir nos vid&#233;os sur Instagram</a>
+    </div>
   </div>
+</main>
 </body>
 </html>
